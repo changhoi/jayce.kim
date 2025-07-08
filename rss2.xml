@@ -106,9 +106,9 @@
       <category domain="https://changhoi.kim/categories/etc/">etc</category>
       
       
-      <category domain="https://changhoi.kim/tags/programming/">programming</category>
-      
       <category domain="https://changhoi.kim/tags/cs/">cs</category>
+      
+      <category domain="https://changhoi.kim/tags/programming/">programming</category>
       
       
       <comments>https://changhoi.kim/posts/etc/system-design-part-1/#disqus_thread</comments>
@@ -426,9 +426,9 @@
       <category domain="https://changhoi.kim/categories/database/">database</category>
       
       
-      <category domain="https://changhoi.kim/tags/dynamodb/">dynamodb</category>
-      
       <category domain="https://changhoi.kim/tags/serverless/">serverless</category>
+      
+      <category domain="https://changhoi.kim/tags/dynamodb/">dynamodb</category>
       
       
       <comments>https://changhoi.kim/posts/database/dynamodb-internals-2/#disqus_thread</comments>
@@ -476,9 +476,9 @@
       <category domain="https://changhoi.kim/categories/database/">database</category>
       
       
-      <category domain="https://changhoi.kim/tags/distributed-system/">distributed_system</category>
-      
       <category domain="https://changhoi.kim/tags/dynamodb/">dynamodb</category>
+      
+      <category domain="https://changhoi.kim/tags/distributed-system/">distributed_system</category>
       
       
       <comments>https://changhoi.kim/posts/database/dynamodb-internals-1/#disqus_thread</comments>
