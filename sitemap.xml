@@ -3,8 +3,13 @@
 
 
     <sitemap>
-        <loc>https://jayce.kim/post-sitemap.xml</loc>
-        <lastmod>2025-04-20T07:00:00.000Z</lastmod>
+        <loc>https://changhoi.kim/post-sitemap.xml</loc>
+        <lastmod>2025-04-19T15:00:00.000Z</lastmod>
+    </sitemap>
+
+    <sitemap>
+        <loc>https://changhoi.kim/page-sitemap.xml</loc>
+        <lastmod>2023-12-26T14:58:33.382Z</lastmod>
     </sitemap>
 
 </sitemapindex>
