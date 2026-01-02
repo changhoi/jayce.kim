@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Docker로 개발 환경 구축하기 (1) - Changhoi Kim</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="white"><meta name="application-name" content="Changhoi Kim"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="msapplication-TileColor" content="white"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Changhoi Kim"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="현재 개발 동아리 팀에 다양한 OS로 인해 생기는 여러 문제들을 Docker로 힙하게 해결 하고자 Docker를 이용해 개발 환경을 구축 했다. 이후 동아리에서 Docker hands on 세션을 진행 하기 위해, 내용을 정리해 보려고 한다. 목표는 docker compose를 활용한 일반적인 백엔드 개발 환경을 구성해보는 것이고, 이번 편은 docker"><meta property="og:type" content="blog"><meta property="og:title" content="Docker로 개발 환경 구축하기 (1)"><meta property="og:url" content="https://changhoi.kim/posts/docker/docker-development-env-(1)/"><meta property="og:site_name" content="Changhoi Kim"><meta property="og:description" content="현재 개발 동아리 팀에 다양한 OS로 인해 생기는 여러 문제들을 Docker로 힙하게 해결 하고자 Docker를 이용해 개발 환경을 구축 했다. 이후 동아리에서 Docker hands on 세션을 진행 하기 위해, 내용을 정리해 보려고 한다. 목표는 docker compose를 활용한 일반적인 백엔드 개발 환경을 구성해보는 것이고, 이번 편은 docker"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="https://live.staticflickr.com/778/22947137613_69a88cb94b_b.jpg"><meta property="article:published_time" content="2019-11-13T15:00:00.000Z"><meta property="article:modified_time" content="2019-11-13T15:00:00.000Z"><meta property="article:author" content="changhoi"><meta property="article:tag" content="도커로_개발_환경_구축하기"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://live.staticflickr.com/778/22947137613_69a88cb94b_b.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://changhoi.kim/posts/docker/docker-development-env-(1)/"},"headline":"Docker로 개발 환경 구축하기 (1)","image":["https://live.staticflickr.com/778/22947137613_69a88cb94b_b.jpg"],"datePublished":"2019-11-13T15:00:00.000Z","dateModified":"2019-11-13T15:00:00.000Z","author":{"@type":"Person","name":"changhoi"},"publisher":{"@type":"Organization","name":"Changhoi Kim","logo":{"@type":"ImageObject","url":"https://changhoi.kim/img/logo.jpg"}},"description":"현재 개발 동아리 팀에 다양한 OS로 인해 생기는 여러 문제들을 Docker로 힙하게 해결 하고자 Docker를 이용해 개발 환경을 구축 했다. 이후 동아리에서 Docker hands on 세션을 진행 하기 위해, 내용을 정리해 보려고 한다. 목표는 docker compose를 활용한 일반적인 백엔드 개발 환경을 구성해보는 것이고, 이번 편은 docker"}</script><link rel="canonical" href="https://changhoi.kim/posts/docker/docker-development-env-(1)/"><link rel="alternate" href="/rss2.xml" title="Changhoi Kim" type="application/atom+xml"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=G-QBSLW6WTZW" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-QBSLW6WTZW');</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.jpg" alt="Changhoi Kim" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="카탈로그" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="검색" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://live.staticflickr.com/778/22947137613_69a88cb94b_b.jpg" alt="Docker로 개발 환경 구축하기 (1)"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2019-11-13T15:00:00.000Z" title="11/14/2019, 12:00:00 AM">2019-11-14</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2019-11-13T15:00:00.000Z" title="11/14/2019, 12:00:00 AM">2019-11-14</time>&nbsp;업데이트 됨</span><span class="level-item"><a class="link-muted" href="/categories/docker/">docker</a></span><span class="level-item">21분안에 읽기 (약 3124 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile">Docker로 개발 환경 구축하기 (1)</h1><div class="content"><p>현재 개발 동아리 팀에 다양한 OS로 인해 생기는 여러 문제들을 Docker로 힙하게 해결 하고자 Docker를 이용해 개발 환경을 구축 했다. 이후 동아리에서 Docker hands on 세션을 진행 하기 위해, 내용을 정리해 보려고 한다. 목표는 docker compose를 활용한 일반적인 백엔드 개발 환경을 구성해보는 것이고, 이번 편은 docker image까지 사용하는 방법을 확인해볼 예정이다.</p>
+<span id="more"></span>
+
+<h2 id="Docker는-무엇일까"><a href="#Docker는-무엇일까" class="headerlink" title="Docker는 무엇일까?"></a>Docker는 무엇일까?</h2><p>도커는 2013년 솔로몬 하익스라는 사람이 최초로 오픈 소스로 공개했다고 한다. 도커의 역사나 기타 배경적 이야기는 제쳐두고, 도커의 기본 개념을 살펴보자.</p>
+<ul>
+<li><p>도커는 <strong>컨테이너 기반</strong> 오픈 소스 <strong>가상화 플랫폼</strong>이다.</p>
+<p>컨테이너 기반이라는 것은 컨테이너형 가상화 기술을 사용 한다는 뜻이다. 기존의 호스트 안에 게스트 OS를 가상화 하는 것은 운영 체제 가상화라고 하는데, 운영 체제 가상화를 위해서는 가상화 소프트웨어를 사용 해야만 하고 OS 전체를 가상화한다. 컨테이너 가상화 기술은 이와 비교했을 때 오버헤드가 작아 운영 환경에서도 사용 가능하고, 개발 환경에서도 사용 가능하다. 가벼움 뿐 아니라 도커는 실행 환경을 컨테이너로 추상화하고 동일한 인터페이스를 제공해 프로그램의 배포 및 관리를 단순하게 한다.</p>
+</li>
+<li><p>도커는 <strong>컨테이너형 가상화를 위한 상주 앱</strong>(도커 엔진), 이를 관리하기 위한 <strong>명령형 도구</strong>로 이루어져 있다.</p>
+<p>아래 이미지에 나타난 것처럼 컨테이너를 올릴 도커 엔진과, 이들을 관리하기 위한 명령어들로 구성되어 있다는 것이다.</p>
+</li>
+</ul>
+<p><img src="https://www.nakivo.com/blog/wp-content/uploads/2019/05/Docker-containers-are-not-lightweight-virtual-machines.png" alt="dockerVsVM"></p>
+<h2 id="Docker는-왜-사용할까"><a href="#Docker는-왜-사용할까" class="headerlink" title="Docker는 왜 사용할까?"></a>Docker는 왜 사용할까?</h2><ul>
+<li>실행 환경이 변하지 않는다.</li>
+<li>코드를 통해 실행 환경을 만들 수 있다.</li>
+<li>실행 환경이 곧 앱이 되기 때문에 배포가 간단해진다. (컨테이너 자체를 바꿔서 버전을 업데이트 할 수 있다.)</li>
+</ul>
+<p>도커를 왜 사용해야 하는가에 대한 글은 이 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.44bits.io/ko/post/why-should-i-use-docker-container">링크</a>에서 확인하면 더 좋을 것 같다.</p>
+<h2 id="Docker는-어떻게-쓰는-걸까"><a href="#Docker는-어떻게-쓰는-걸까" class="headerlink" title="Docker는 어떻게 쓰는 걸까?"></a>Docker는 어떻게 쓰는 걸까?</h2><p>나는 이미 도커를 쓰겠다고 마음을 먹었으니 앞선 주제는 이 정도 선에서 마무리 짓고, 도커를 어떻게 쓸지를 정리하도록 하겠다. 도커는 기본적으로 이미지를 다루는 섹션과 컨테이너를 다루는 섹션으로 구분 지을 수 있다. 쉽게 말하자면 이미지는 컨테이너를 정의하는 것이라고 볼 수 있고, 이에 따라 컨테이너가 생성된다.</p>
+<p>이제 본격적으로 이미지와 컨테이너를 다룰 건데, 이번 글에서는 먼저 이미지에 대한 내용을 공부하고, 다음 컨테이너를 다뤄 보도록 하겠다.</p>
+<h2 id="Docker-Help와-Search"><a href="#Docker-Help와-Search" class="headerlink" title="Docker Help와 Search"></a>Docker Help와 Search</h2><p>먼저 docker의 help 명령어와 search 명령어를 보고 넘어가자.</p>
+<h3 id="docker-help"><a href="#docker-help" class="headerlink" title="docker help"></a><code>docker help</code></h3><p>도커 명령어들은 하위 명령을 가지고 있는 박스처럼 구성되어 있어서, help 명령어로 내려가면서 명령들을 찾아볼 수 있다. 하위 명령을 찾는 방법은 다음처럼 어떤 명령어 뒤에 <code>--help</code>를 붙여서 확인할 수 있다.</p>
+<ul>
+<li><code>docker image --help</code></li>
+</ul>
+<h3 id="docker-search"><a href="#docker-search" class="headerlink" title="docker search"></a><code>docker search</code></h3><p>도커 허브에 등록된 이미지들을 찾아볼 수 있다. <code>--limit</code> 명령어로 검색 건수를 제한할 수도 있다.</p>
+<ul>
+<li><code>docker search --limit 5 ubunut</code> (<code>--limit</code>을 뒤에 붙여도 됨)</li>
+</ul>
+<h2 id="Docker-이미지"><a href="#Docker-이미지" class="headerlink" title="Docker 이미지"></a>Docker 이미지</h2><p>Docker 이미지는 컨테이너 실행에 필요한 파일과 설정 값 등을 포함하고 있는 것이다. 이미지는 Dockerfile을 통해서 빌드 할 수 있고, 빌드 된 이미지는 기본적으로 불변이다. 이미지는 Dockerfile이 변경되면 새롭게 빌드할 수 있고, 개인적으로는 이때 이미지는 변경된다기 보다는 대체된다는 느낌이다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dockerfile -&gt; Docker Image -&gt; Docker Container</span><br></pre></td></tr></table></figure>
+
+<p>Dockerfile은 우리가 필요한 이미지가 어떤 형태, 상태인지를 정의한 파일이다. 이 파일을 기반으로 이미지를 빌드할 수 있다. 여러 Instruction이 있는데 이후 정리해보도록 하고, 우선 가장 기본적인 Instruction을 정리해보자</p>
+<table>
+<thead>
+<tr>
+<th align="center">Instructuon</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">FROM</td>
+<td align="left">도커 이미지의 바탕이 될 베이스 이미지를 지정한다. 이 이미지는 Docker hub라는 레지스트리에 공개된 것이어야 한다.</td>
+</tr>
+<tr>
+<td align="center">RUN</td>
+<td align="left">이미지를 실행할 때 컨테이너 안에서 실행할 명령어를 정의한다.</td>
+</tr>
+<tr>
+<td align="center">COPY</td>
+<td align="left">호스트의 파일 또는 디렉토리를 도커 컨테이너 안으로 복사한다.</td>
+</tr>
+<tr>
+<td align="center">CMD</td>
+<td align="left">도커를 실행할 때 컨테이너 안에서 실행할 명령을 정의한다. RUN과 다르게 RUN은 이미지를 빌드할 때 실행되고, CMD는 컨테이너를 실행하면 한 번만 실행된다.</td>
+</tr>
+</tbody></table>
+<p>이제 지금 배운 걸로 docker image를 만들어보자. 아래와 같은 코드가 있고, Dependencies도 모두 설치 된 상태라고 가정하자.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>)();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">logger</span>(<span class="string">&quot;dev&quot;</span>));</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="title function_">send</span>(<span class="string">&quot;&lt;h1&gt;Hello world docker!&lt;/h1&gt;&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Server is on 3000&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>이런 자바스크립트 서버를 도커 위에서 동작하게 하려면 다음과 같은 Dockerfile이 필요하다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dockerfile</span></span><br><span class="line"></span><br><span class="line">FROM node:latest</span><br><span class="line"></span><br><span class="line">COPY . .</span><br><span class="line"></span><br><span class="line">RUN npm i</span><br><span class="line"></span><br><span class="line">CMD [<span class="string">&quot;npm&quot;</span>, <span class="string">&quot;start&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>위 Instruction을 확인해보면 위 Dockerfile은 node 최신 버전의 이미지를 베이스로, 현재 폴더를 도커 컨테이너의 현재 폴더에 복사 해 넣고, npm i를 수행한 상태의 컨테이너 이미지를 빌드하게 해준다. 이제 그럼 정말로 이미지를 만들어보자.</p>
+<h3 id="docker-image-build"><a href="#docker-image-build" class="headerlink" title="docker image build"></a><code>docker image build</code></h3><p><code>docker image build</code>를 사용하면 도커 이미지가 빌드된다. 정확한 사용 방법은 아래와 같다.</p>
+<ul>
+<li><code>docker image build &lt;Dockerfile 위치&gt;</code></li>
+</ul>
+<p><code>docker image build .</code> 명령어로 이미지를 빌드 한 다음 <code>docker image ls</code>를 사용해서 빌드된 이미지를 확인할 수 있다. 이 명령어는 빌드된 이미지의 목록과 Dockerfile의 <code>FROM</code> Instruction에 의해 pull 받아온 이미지들까지 보여주는 명령어이다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">&lt;none&gt;              &lt;none&gt;              14c7411cfdf3        4 seconds ago        935MB</span><br><span class="line">node                 latest              1a77bcb355eb        5 days ago          933MB</span><br></pre></td></tr></table></figure>
+
+<p>node의 이미지와 다르게 방금 우리가 만든 이미지의 REPOSITORY와 TAG는 <code>&lt;none&gt;</code>이다. 이미지의 이름과 태그라고 하는데 이를 지정해 주어야 나타난다. 빌드할 때 이미지에 이름과 태그를 붙이려면 <code>-t</code> 옵션을 붙여서 사용해야 한다.</p>
+<ul>
+<li><code>docker image build -t 이름[:태그] &lt;Dockerfile 위치&gt;</code></li>
+</ul>
+<p>태그는 없어도 되는데, 없는 경우 latest로 자동 설정 된다. 아래 명령어를 다시 실행한 다음 목록을 확인해 보면, none 이미지의 태그와 이름이 붙었다.</p>
+<ul>
+<li><code>docker image build -t changhoi/hands-on:latest .</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">changhoi/hands-on   latest              14c7411cfdf3        45 seconds ago       935MB</span><br><span class="line">node                 latest              1a77bcb355eb        5 days ago          933MB</span><br></pre></td></tr></table></figure>
+
+<p>IMAGE ID를 통해서 <code>&lt;none&gt;</code>과 <code>changhoi/hands-on</code>이 같은 이미지라는 것을 알 수 있는데, Dockerfile의 변경점이 없어서 대체된 것으로 보인다. Dockerfile을 기반으로 빌드를 할 때 도커는 캐시를 사용한다. 예를 들어서 아무 변경 사항 없이 다시 <code>docker image build .</code> 명령어를 사용하면 아래처럼 콘솔에 찍히는 것을 볼 수 있다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Sending build context to Docker daemon  2.168MB</span><br><span class="line">Step 1/4 : FROM node:latest</span><br><span class="line"> ---&gt; 1a77bcb355eb</span><br><span class="line">Step 2/4 : COPY . .</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 8fd65e34f927</span><br><span class="line">Step 3/4 : RUN npm i</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 1001c43e9d1c</span><br><span class="line">Step 4/4 : CMD [<span class="string">&quot;npm&quot;</span>, <span class="string">&quot;start&quot;</span>]</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 071dd8f024c6</span><br><span class="line">Successfully built 071dd8f024c6</span><br></pre></td></tr></table></figure>
+
+<p>캐시를 사용하는 것으로 인해서 원래는 <code>&lt;none&gt;</code>이 생성되어야 하는데, 기존에 이름과 태그가 그대로 붙어 있는 것을 확인할 수 있다. 첫 번째 step은 <code>FROM</code> Instruction을 실행하는데, 캐시를 사용한다는 말은 없지만, 지정한 이미지가 호스트에 남아있다면 그 이미지를 그대로 가져다 쓴다.</p>
+<p>위 두 가지 상황(<code>FROM</code>을 별도 pull없이 가져옴, 명령어를 캐시해서 사용함)을 캐시 없이 빌드 하도록 강제할 수 있는데 아래 옵션을 추가하면 된다.</p>
+<ul>
+<li><code>docker image build --pull=true</code>: <code>FROM</code>에 있는 베이스 이미지를 새로 pull 받도록 한다.</li>
+<li><code>docker image build --no-cache</code>: 다른 Instruction을 캐시 없이 진행한다.</li>
+</ul>
+<p>아래 명령어를 다시 실행해보고 <code>docker image ls</code>를 해 봤다.</p>
+<ul>
+<li><code>docker image build -t changhoi/hands-on --no-cache --pull=true .</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">changhoi/hands-on   latest              d320649c3efe        10 seconds ago      935MB</span><br><span class="line">&lt;none&gt;              &lt;none&gt;              14c7411cfdf3        16 minutes ago      935MB</span><br><span class="line">node                latest              1a77bcb355eb        5 days ago          933MB</span><br></pre></td></tr></table></figure>
+
+<p>아까 이미지는 <code>&lt;none&gt;</code>으로 바뀌고 새로운 <code>latest</code>가 생긴 것을 확인할 수 있다. 이것은 이름:태그가 고유하기 때문이다. 이름은 중복 가능하지만, 같은 이름의 같은 태그는 존재하지 않는다.</p>
+<h3 id="docker-image-tag"><a href="#docker-image-tag" class="headerlink" title="docker image tag"></a><code>docker image tag</code></h3><p><code>&lt;none&gt;</code>이라고 붙은 이미지에 새롭게 태그를 붙여주자. 태그 명령어는 아래와 같이 사용할 수 있다.</p>
+<ul>
+<li><code>docker image tag 원래이름:태그 새로운이름:태그</code></li>
+<li><code>docker image tag 구분가능한IMAGEID 새로운이름:태그</code></li>
+</ul>
+<p>구분 가능한 IMAGEID라는 것은 ID를 모두 치지 않더라도 유일해질 정도만 쳐도 괜찮다는 뜻이다. 아래 명령어로 태그를 붙인 다음, 목록을 확인해 보면 구분 가능한 ID에 새롭게 이름과 태그가 붙는 것을 확인할 수 있다.</p>
+<ul>
+<li><code>docker image tag 14c changhoi/hands-on:old</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">changhoi/hands-on   latest              d320649c3efe        3 minutes ago       935MB</span><br><span class="line">changhoi/hands-on    old                14c7411cfdf3        5 minutes ago       935MB</span><br><span class="line">node                latest              1a77bcb355eb        5 days ago          933MB</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker-image-rm"><a href="#docker-image-rm" class="headerlink" title="docker image rm"></a><code>docker image rm</code></h3><p>만든 이미지는 당연히 지울 수도 있는데, 아래 명령어로 이미지를 삭제할 수 있다. 다만, 지우려는 이미지가 다른 이미지의 베이스 이미지면 안된다.</p>
+<ul>
+<li><code>docker image rm changhoi/hands-on:old</code></li>
+</ul>
+<p>위 명령어를 실행한 뒤 목록을 확인해 보면 삭제된 것을 알 수 있다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">changhoi/hands-on   latest              d320649c3efe        45 minutes ago      935MB</span><br><span class="line">node                latest              1a77bcb355eb        5 days ago          933MB</span><br></pre></td></tr></table></figure>
+
+<h3 id="ETC"><a href="#ETC" class="headerlink" title="ETC"></a>ETC</h3><ul>
+<li><code>docker image pull</code>: Docker hub에 있는 특정한 이미지를 Pull 받을 수 있다.</li>
+</ul>
+<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><h3 id="Dockerfile-Instruction"><a href="#Dockerfile-Instruction" class="headerlink" title="Dockerfile Instruction"></a>Dockerfile Instruction</h3><table>
+<thead>
+<tr>
+<th align="center">Instruction</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">FROM</td>
+<td align="left">도커 이미지의 바탕이 될 베이스 이미지를 지정한다. 이 이미지는 Docker hub라는 레지스트리에 공개된 것이어야 한다.</td>
+</tr>
+<tr>
+<td align="center">RUN</td>
+<td align="left">이미지를 실행할 때 컨테이너 안에서 실행할 명령어를 정의한다.</td>
+</tr>
+<tr>
+<td align="center">COPY</td>
+<td align="left">호스트의 파일 또는 디렉토리를 도커 컨테이너 안으로 복사한다.</td>
+</tr>
+<tr>
+<td align="center">CMD</td>
+<td align="left">도커를 실행할 때 컨테이너 안에서 실행할 명령을 정의한다. RUN과 다르게 RUN은 이미지를 빌드할 때 실행되고, CMD는 컨테이너를 실행하면 한 번만 실행된다.</td>
+</tr>
+<tr>
+<td align="center">ADD</td>
+<td align="left">COPY + 압축 파일 해제, URL로부터 컨테이너 파일 및 디렉토리 추가</td>
+</tr>
+<tr>
+<td align="center">ARG</td>
+<td align="left"><code>docker image build</code> 실행할 때 사용하는 변수</td>
+</tr>
+<tr>
+<td align="center">ENTRYPOINT</td>
+<td align="left">컨테이너를 실행 가능 파일로 사용할 때 정의하는 명령</td>
+</tr>
+<tr>
+<td align="center">ENV</td>
+<td align="left">컨테이너 안에서 사용하는 환경 변수</td>
+</tr>
+<tr>
+<td align="center">EXPOSE</td>
+<td align="left">컨테이너가 노출하는 포르 설정</td>
+</tr>
+<tr>
+<td align="center">HEALTHCHECK</td>
+<td align="left">명령을 실행한 다음 결과를 헬스 체크에 사용한다</td>
+</tr>
+<tr>
+<td align="center">LABEL</td>
+<td align="left">이미지에 추가되는 메타 데이터</td>
+</tr>
+<tr>
+<td align="center">ONBUILD</td>
+<td align="left">컨테이너 안에서 실행되는 명령을 정의함. 이미지에서는 실행되지 않음</td>
+</tr>
+<tr>
+<td align="center">STOPSIGNAL</td>
+<td align="left">컨테이너에 전달되면 컨테이너를 종료</td>
+</tr>
+<tr>
+<td align="center">USER</td>
+<td align="left">컨테이너 사용자. USER Instruction 이후에 나오는 RUN Instruction도 해당 사용자 권한으로 실행된다.</td>
+</tr>
+<tr>
+<td align="center">VOLUME</td>
+<td align="left">호스트나 다른 컨테이너에서 볼륨을 마운트</td>
+</tr>
+<tr>
+<td align="center">WORKDIR</td>
+<td align="left">컨테이너의 작업 디렉토리</td>
+</tr>
+</tbody></table>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li>Book: 도커&#x2F;쿠버네티스를 활용한 컨테이너 개발 실전 입문</li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/voyagerwoo/docker-hands-on">https://github.com/voyagerwoo/docker-hands-on</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.44bits.io/ko/post/why-should-i-use-docker-container">https://www.44bits.io/ko/post/why-should-i-use-docker-container</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.44bits.io/ko/post/almost-perfect-development-environment-with-docker-and-docker-compose?fbclid=IwAR3GPrNSySCj4k-4qu3pL-fRq29uBQ8RR6MSfviibHZnmYj-BQiV_G9e34U">https://www.44bits.io/ko/post/almost-perfect-development-environment-with-docker-and-docker-compose?fbclid=IwAR3GPrNSySCj4k-4qu3pL-fRq29uBQ8RR6MSfviibHZnmYj-BQiV_G9e34U</a></li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Docker로 개발 환경 구축하기 (1)</p><p><a href="https://changhoi.kim/posts/docker/docker-development-env-(1)/">https://changhoi.kim/posts/docker/docker-development-env-(1)/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>changhoi</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2019-11-14</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2019-11-14</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="external nofollow noopener noreferrer" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="external nofollow noopener noreferrer" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="external nofollow noopener noreferrer" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%EB%8F%84%EC%BB%A4%EB%A1%9C-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">도커로_개발_환경_구축하기</a></div><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class="a2a_dd" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.addtoany.com/share"></a><a class="a2a_button_facebook"></a><a class="a2a_button_twitter"></a><a class="a2a_button_telegram"></a><a class="a2a_button_whatsapp"></a><a class="a2a_button_reddit"></a></div><script src="https://static.addtoany.com/menu/page.js" defer></script></article></div><div class="card"><div class="card-content"><h3 class="title is-5">관련 글</h3><article class="media"><figure class="media-left"><a class="image" href="/posts/docker/Docker-best-practices/"><img src="https://cdn-media-1.freecodecamp.org/images/0*mgaoUlIJzr502lhY.jpg" alt="도커 베스트 프랙티스 (번역)"></a></figure><div class="media-content"><p class="date"><time datetime="2020-03-03T15:00:00.000Z">2020-03-04</time></p><p class="title"><a href="/posts/docker/Docker-best-practices/">도커 베스트 프랙티스 (번역)</a></p><p class="categories"><a href="/categories/docker/">docker</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/posts/docker/Use-multiple-Dockerfiles-for-complex-application-configuration/"><img src="https://cdn.ttgtmedia.com/visuals/searchCloudComputing/infrastructure/cloudcomputing_article_011.jpg" alt="복잡한 애플리케이션 설정을 위한 복수의 도커 파일 사용하기(번역)"></a></figure><div class="media-content"><p class="date"><time datetime="2020-03-01T15:00:00.000Z">2020-03-02</time></p><p class="title"><a href="/posts/docker/Use-multiple-Dockerfiles-for-complex-application-configuration/">복잡한 애플리케이션 설정을 위한 복수의 도커 파일 사용하기(번역)</a></p><p class="categories"><a href="/categories/docker/">docker</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/posts/docker/fargate-demo/"><img src="https://cdn-images-1.medium.com/max/1600/1*YRdbz-SNDxCTnyPGJU347Q.jpeg" alt="컨테이너 서버리스 Fargate 배포하기"></a></figure><div class="media-content"><p class="date"><time datetime="2020-02-21T15:00:00.000Z">2020-02-22</time></p><p class="title"><a href="/posts/docker/fargate-demo/">컨테이너 서버리스 Fargate 배포하기</a></p><p class="categories"><a href="/categories/docker/">docker</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/posts/docker/docker-development-env-(2)/"><img src="https://live.staticflickr.com/778/22947137613_69a88cb94b_b.jpg" alt="Docker로 개발 환경 구축하기 (2)"></a></figure><div class="media-content"><p class="date"><time datetime="2019-11-20T15:00:00.000Z">2019-11-21</time></p><p class="title"><a href="/posts/docker/docker-development-env-(2)/">Docker로 개발 환경 구축하기 (2)</a></p><p class="categories"><a href="/categories/docker/">docker</a></p></div></article></div></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/posts/docker/docker-development-env-(2)/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Docker로 개발 환경 구축하기 (2)</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/linux/add-user-to-docker-group/"><span class="level-item">리눅스에서 Docker 명령어 sudo 없이 사용하기</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">댓글</h3><div class="fb-comments" data-width="100%" data-href="https://changhoi.kim/posts/docker/docker-development-env-(1)/" data-num-posts="5"></div><script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/ko/sdk.js#xfbml=1&version=v12.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars2.githubusercontent.com/u/34329147?s=400&amp;u=9d1b1dc88bc8ee5965f35b0160780264c3619eb6&amp;v=4" alt="Changhoi Kim"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Changhoi Kim</p><p class="is-size-6 is-block">Co-Founder of Bayesians</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Seoul, Korea</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">포스트</p><a href="/archives/"><p class="title">75</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">카테고리</p><a href="/categories/"><p class="title">13</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">태그</p><a href="/tags/"><p class="title">47</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://www.linkedin.com/in/changhoi/" target="_blank" rel="external nofollow noopener noreferrer">팔로우</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="external nofollow noopener noreferrer" title="LinkedIn" href="https://www.linkedin.com/in/changhoi/"><i class="fab fa-linkedin"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="external nofollow noopener noreferrer" title="Github" href="https://github.com/changhoi"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="external nofollow noopener noreferrer" title="Email" href="mailto:changhoi0522@gmail.com"><i class="fas fa-envelope-square"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="external nofollow noopener noreferrer" title="English" href="https://jayce.kim"><i class="fas fa-language"></i></a></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">카테고리</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/backend/"><span class="level-start"><span class="level-item">backend</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/categories/books/"><span class="level-start"><span class="level-item">books</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/database/"><span class="level-start"><span class="level-item">database</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/categories/docker/"><span class="level-start"><span class="level-item">docker</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/essay/"><span class="level-start"><span class="level-item">essay</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/etc/"><span class="level-start"><span class="level-item">etc</span></span><span class="level-end"><span class="level-item tag">13</span></span></a></li><li><a class="level is-mobile" href="/categories/go/"><span class="level-start"><span class="level-item">go</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/linux/"><span class="level-start"><span class="level-item">linux</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/logs/"><span class="level-start"><span class="level-item">logs</span></span><span class="level-end"><span class="level-item tag">13</span></span></a></li><li><a class="level is-mobile" href="/categories/network/"><span class="level-start"><span class="level-item">network</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/os/"><span class="level-start"><span class="level-item">os</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/rust/"><span class="level-start"><span class="level-item">rust</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/serverless/"><span class="level-start"><span class="level-item">serverless</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li></ul></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">카탈로그</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Docker는-무엇일까"><span class="level-left"><span class="level-item">1</span><span class="level-item">Docker는 무엇일까?</span></span></a></li><li><a class="level is-mobile" href="#Docker는-왜-사용할까"><span class="level-left"><span class="level-item">2</span><span class="level-item">Docker는 왜 사용할까?</span></span></a></li><li><a class="level is-mobile" href="#Docker는-어떻게-쓰는-걸까"><span class="level-left"><span class="level-item">3</span><span class="level-item">Docker는 어떻게 쓰는 걸까?</span></span></a></li><li><a class="level is-mobile" href="#Docker-Help와-Search"><span class="level-left"><span class="level-item">4</span><span class="level-item">Docker Help와 Search</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#docker-help"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">docker help</span></span></a></li><li><a class="level is-mobile" href="#docker-search"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">docker search</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Docker-이미지"><span class="level-left"><span class="level-item">5</span><span class="level-item">Docker 이미지</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#docker-image-build"><span class="level-left"><span class="level-item">5.1</span><span class="level-item">docker image build</span></span></a></li><li><a class="level is-mobile" href="#docker-image-tag"><span class="level-left"><span class="level-item">5.2</span><span class="level-item">docker image tag</span></span></a></li><li><a class="level is-mobile" href="#docker-image-rm"><span class="level-left"><span class="level-item">5.3</span><span class="level-item">docker image rm</span></span></a></li><li><a class="level is-mobile" href="#ETC"><span class="level-left"><span class="level-item">5.4</span><span class="level-item">ETC</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Appendix"><span class="level-left"><span class="level-item">6</span><span class="level-item">Appendix</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Dockerfile-Instruction"><span class="level-left"><span class="level-item">6.1</span><span class="level-item">Dockerfile Instruction</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Reference"><span class="level-left"><span class="level-item">7</span><span class="level-item">Reference</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.jpg" alt="Changhoi Kim" height="28"></a><p class="is-size-7"><span>&copy; 2026 changhoi</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("ko");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="맨 위로" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="입력 하세요..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"입력 하세요...","untitled":"(제목 없음)","posts":"포스트","pages":"페이지","categories":"카테고리","tags":"태그"});
+        });</script></body></html>

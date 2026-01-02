@@ -2,31 +2,607 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://jayce.kim/</loc>
+        <loc>https://changhoi.kim/</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
 
 
     <url>
-        <loc>https://jayce.kim/posts/logs/20250724/</loc>
-        <lastmod>2025-07-24T07:00:00.000Z</lastmod>
+        <loc>https://changhoi.kim/posts/logs/20260101/</loc>
+        <lastmod>2025-12-31T15:00:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
     </url>
 
     <url>
-        <loc>https://jayce.kim/posts/logs/20250420/</loc>
-        <lastmod>2025-04-20T07:00:00.000Z</lastmod>
+        <loc>https://changhoi.kim/posts/logs/20250724/</loc>
+        <lastmod>2025-07-23T15:00:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
     </url>
 
     <url>
-        <loc>https://jayce.kim/posts/logs/20250101/</loc>
-        <lastmod>2025-01-01T08:00:00.000Z</lastmod>
+        <loc>https://changhoi.kim/posts/logs/20250420/</loc>
+        <lastmod>2025-04-19T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20250101/</loc>
+        <lastmod>2024-12-31T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20240101/</loc>
+        <lastmod>2023-12-29T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/system-design-part-1/</loc>
+        <lastmod>2023-10-04T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/go/go-pkg-architecture-theory/</loc>
+        <lastmod>2023-07-12T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/database/scaling-memcache-at-facebook/</loc>
+        <lastmod>2023-06-22T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/network/about-http3/</loc>
+        <lastmod>2023-02-03T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/essay/outstanding-team/</loc>
+        <lastmod>2023-01-10T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20230105/</loc>
+        <lastmod>2023-01-04T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/database/etcd-client-model/</loc>
+        <lastmod>2022-12-10T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/rust/rust-ownership/</loc>
+        <lastmod>2022-11-20T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/database/etcd-data-model/</loc>
+        <lastmod>2022-11-02T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/books/infrastructure-as-code/</loc>
+        <lastmod>2022-09-29T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/books/design-pattern-for-cloud-native-application-review/</loc>
+        <lastmod>2022-07-23T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/go/go-scheduler/</loc>
+        <lastmod>2022-05-24T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/terraform-for-newbie/</loc>
+        <lastmod>2022-05-07T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/database/dynamodb-internals-2/</loc>
+        <lastmod>2022-04-18T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20220417/</loc>
+        <lastmod>2022-04-16T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/database/dynamodb-internals-1/</loc>
+        <lastmod>2022-04-15T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/books/learning-go/</loc>
+        <lastmod>2022-03-28T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/go/go-gc/</loc>
+        <lastmod>2022-03-24T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/grpc-internals/</loc>
+        <lastmod>2022-02-21T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/books/sql-cookbook/</loc>
+        <lastmod>2022-02-19T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/database/rdb-scaling/</loc>
+        <lastmod>2022-02-08T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/go/about-go-range/</loc>
+        <lastmod>2021-10-17T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/network/about-nat/</loc>
+        <lastmod>2021-10-06T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/network/about-dhcp/</loc>
+        <lastmod>2021-09-22T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/os/memory-allocation-and-mapping/</loc>
+        <lastmod>2021-09-08T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/https-dive/</loc>
+        <lastmod>2021-08-12T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/red-black-tree/</loc>
+        <lastmod>2021-06-30T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/database/mongodb-modeling/</loc>
+        <lastmod>2021-05-07T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20210501/</loc>
+        <lastmod>2021-04-30T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/great-operation-creating-react-ui-kit/</loc>
+        <lastmod>2021-02-13T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20201230/</loc>
+        <lastmod>2020-12-29T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/essay/what-post-is-good-post/</loc>
+        <lastmod>2020-11-11T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/database/dynamodb-single-table-design/</loc>
+        <lastmod>2020-10-23T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/rxjs-operator-01/</loc>
+        <lastmod>2020-09-25T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/rxjs-quicklearn-03/</loc>
+        <lastmod>2020-09-19T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/rxjs-quicklearn-02/</loc>
+        <lastmod>2020-09-16T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/rxjs-quicklearn-01/</loc>
+        <lastmod>2020-08-18T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20200807/</loc>
+        <lastmod>2020-08-06T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/go-lambda-try/</loc>
+        <lastmod>2020-07-08T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/refactoring-practice/</loc>
+        <lastmod>2020-06-18T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/husky/</loc>
+        <lastmod>2020-04-07T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/nest-todo-api-demo/</loc>
+        <lastmod>2020-03-25T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/nestjs-quicklearn-05/</loc>
+        <lastmod>2020-03-25T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/nestjs-quicklearn-04/</loc>
+        <lastmod>2020-03-24T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/nestjs-quicklearn-03/</loc>
+        <lastmod>2020-03-22T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/nestjs-quicklearn-02/</loc>
+        <lastmod>2020-03-20T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/nestjs-quicklearn-01/</loc>
+        <lastmod>2020-03-19T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/serverside-typescript-setting-03/</loc>
+        <lastmod>2020-03-12T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/serverside-typescript-setting-02/</loc>
+        <lastmod>2020-03-11T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/backend/serverside-typescript-setting-01/</loc>
+        <lastmod>2020-03-10T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/serverless/serverless-deployment-best-practices/</loc>
+        <lastmod>2020-03-08T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20200307/</loc>
+        <lastmod>2020-03-06T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/serverless/serverless-vpc-deploy-demo/</loc>
+        <lastmod>2020-03-04T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/docker/Docker-best-practices/</loc>
+        <lastmod>2020-03-03T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/docker/Use-multiple-Dockerfiles-for-complex-application-configuration/</loc>
+        <lastmod>2020-03-01T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/serverless/serverless-cronjob-crawler-demo/</loc>
+        <lastmod>2020-02-29T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/docker/fargate-demo/</loc>
+        <lastmod>2020-02-21T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/react-redux-hooks/</loc>
+        <lastmod>2020-02-04T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/redux-async-demo/</loc>
+        <lastmod>2020-02-03T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20191231/</loc>
+        <lastmod>2019-12-30T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/etc/shallow-knowledge-of-funtional-programming/</loc>
+        <lastmod>2019-12-18T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/linux/zip-command/</loc>
+        <lastmod>2019-12-08T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/serverless/serverless-architecture-pattern/</loc>
+        <lastmod>2019-12-08T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/serverless/serverless-framework-quicklearn-(2)/</loc>
+        <lastmod>2019-11-26T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/serverless/serverless-framework-quicklearn-(1)/</loc>
+        <lastmod>2019-11-23T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/docker/docker-development-env-(2)/</loc>
+        <lastmod>2019-11-20T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/docker/docker-development-env-(1)/</loc>
+        <lastmod>2019-11-13T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/linux/add-user-to-docker-group/</loc>
+        <lastmod>2019-11-09T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/linux/detail-of-ls/</loc>
+        <lastmod>2019-11-09T15:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://changhoi.kim/posts/logs/20191027/</loc>
+        <lastmod>2019-10-26T15:00:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://jayce.kim/sitemap.xml
+Sitemap: https://changhoi.kim/sitemap.xml
